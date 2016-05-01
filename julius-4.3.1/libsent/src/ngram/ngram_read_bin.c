@@ -90,11 +90,16 @@ rdnfunc(FILE *fp, void *buf, size_t unitbyte, size_t unitnum)
     jlog("Error: ngram_read_bin: failed to read %d bytes\n", unitbyte*unitnum);
     return FALSE;
   }
+
+// modified by Kenta Kubo on May 1, 2016
+#ifndef ANDROID_CUSTOM
   if (need_swap) {
     if (unitbyte != 1) {
       swap_bytes(buf, unitbyte, unitnum);
     }
   }
+#endif
+
   return TRUE;
 }
 

@@ -66,11 +66,23 @@ rdnfunc(FILE *fp, void *buf, size_t unitbyte, int unitnum)
     jlog("Error: read_binhmm: failed to read %d bytes\n", unitbyte * unitnum);
     return FALSE;
   }
+
+// modified by Kenta Kubo on May 1, 2016
+#ifdef ANDROID_CUSTOM
+#undef WORDS_BIGENDIAN
+#endif
+
 #ifndef WORDS_BIGENDIAN
   if (unitbyte != 1) {
     swap_bytes(buf, unitbyte, unitnum);
   }
 #endif
+
+// modified by Kenta Kubo on May 1, 2016
+#ifdef ANDROID_CUSTOM
+#define WORDS_BIGENDIAN
+#endif
+
   return TRUE;
 }
 
